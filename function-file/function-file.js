@@ -99,7 +99,7 @@ function getItemID(event) {
   Office.context.mailbox.item.notificationMessages.addAsync("itemID", {
     type: "informationalMessage",
     icon: "red-icon-16",
-    message: "Item ID: " + itemID,
+    message: "Item ID -> " + itemID,
     persistent: false
   });
   
