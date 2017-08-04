@@ -15,7 +15,7 @@
   };
 
   function run() {
-    
+    alert('Hello!');
     
     /**
      * Insert your Outlook code here
