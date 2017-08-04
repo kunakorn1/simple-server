@@ -15,3 +15,7 @@
   // Add any ui-less function here
 
 })();
+
+function helloMessage(){
+  alert("Hello");
+}
