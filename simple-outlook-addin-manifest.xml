@@ -87,8 +87,8 @@
                     <bt:Image size="32" resid="icon32" />
                     <bt:Image size="80" resid="icon80" />
                   </Icon>
-                  <Action xsi:type="ShowTaskpane">
-                    <SourceLocation resid="messageReadTaskPaneUrl" />
+                  <Action xsi:type="ExecuteFunction">
+                            <FunctionName>helloMessage</FunctionName>
                   </Action>
                 </Control>
                 <!-- Go to http://aka.ms/ButtonCommands to learn how to add more Controls: ExecuteFunction and Menu -->
