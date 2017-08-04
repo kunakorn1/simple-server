@@ -5,17 +5,17 @@
 
 'use strict';
 
-(function () {
-
-  // The initialize function must be run each time a new page is loaded
-  Office.initialize = function (reason) {
-    
-  };
-
-  // Add any ui-less function here
-
-})();
-
-function helloMessage(){
-  alert("Hello");
+Office.initialize = function() {
+    // TODO: Add your initialization logic here
+}
+ 
+function onCommandClick(event) {
+    // TODO: Add your command logic here
+ 
+    Office.cast.item.toItemCompose(Office.context.mailbox.item).subject.
+        setAsync("Hello Outlook!", function(asyncResult) {
+ 
+            // Tell the host that we are done
+            event.completed();
+        });
 }
