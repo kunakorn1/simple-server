@@ -105,3 +105,59 @@ function getItemID(event) {
   
   event.completed();
 }
+
+function getSubjectRequest(id) {
+   // Return a GetItem operation request for the subject of the specified item.
+   var request =
+    '<?xml version="1.0" encoding="utf-8"?>' +
+    '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' +
+    '               xmlns:xsd="http://www.w3.org/2001/XMLSchema"' +
+    '               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"' +
+    '               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types">' +
+    '  <soap:Header>' +
+    '    <RequestServerVersion Version="Exchange2013" xmlns="http://schemas.microsoft.com/exchange/services/2006/types" soap:mustUnderstand="0" />' +
+    '  </soap:Header>' +
+    '  <soap:Body>' +
+    '    <GetItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages">' +
+    '      <ItemShape>' +
+    '        <t:BaseShape>IdOnly</t:BaseShape>' +
+    '        <t:AdditionalProperties>' +
+    '            <t:FieldURI FieldURI="item:Subject"/>' +
+    '        </t:AdditionalProperties>' +
+    '      </ItemShape>' +
+    '      <ItemIds><t:ItemId Id="' + id + '"/></ItemIds>' +
+    '    </GetItem>' +
+    '  </soap:Body>' +
+    '</soap:Envelope>';
+
+   return request;
+}
+
+function sendRequest(event) {
+   // Create a local variable that contains the mailbox.
+   Office.context.mailbox.makeEwsRequestAsync(
+    getSubjectRequest(mailbox.item.itemId), callback);
+  
+  event.Completed()
+}
+
+function callback(asyncResult)  {
+   var result = asyncResult.value;
+   var context = asyncResult.asyncContext;
+  
+  Office.context.mailbox.item.notificationMessages.addAsync("Result", {
+    type: "informationalMessage",
+    icon: "red-icon-16",
+    message: "Result: " + result,
+    persistent: false
+  });
+  
+   Office.context.mailbox.item.notificationMessages.addAsync("Context", {
+    type: "informationalMessage",
+    icon: "red-icon-16",
+    message: "Context: " + context,
+    persistent: false
+  });
+
+   // Process the returned response here.
+}
