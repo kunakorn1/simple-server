@@ -138,26 +138,33 @@ function sendRequest(event) {
    Office.context.mailbox.makeEwsRequestAsync(
     getSubjectRequest(mailbox.item.itemId), callback);
   
-  event.Completed()
+  event.completed();
 }
 
 function callback(asyncResult)  {
    var result = asyncResult.value;
    var context = asyncResult.asyncContext;
-  
-  Office.context.mailbox.item.notificationMessages.addAsync("Result", {
-    type: "informationalMessage",
-    icon: "red-icon-16",
-    message: "Result: " + result,
-    persistent: false
-  });
-  
-   Office.context.mailbox.item.notificationMessages.addAsync("Context", {
-    type: "informationalMessage",
-    icon: "red-icon-16",
-    message: "Context: " + context,
-    persistent: false
-  });
 
    // Process the returned response here.
+  download(result, 'result.txt', 'text/plain');
+  download(context, 'context.txt', 'text/plain');
+}
+
+// Function to download data to a file
+function download(data, filename, type) {
+    var file = new Blob([data], {type: type});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
 }
