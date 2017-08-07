@@ -39,6 +39,7 @@ function emailBodyCallback(asyncResult){
     else{
       body = asyncResult.value;  
     }
+  checkEmailContents();
 }
 
 function emailBodyHTMLCallback(asyncResult){
@@ -48,6 +49,7 @@ function emailBodyHTMLCallback(asyncResult){
     else{
       bodyHTML = asyncResult.value;  
     }
+  checkEmailContents();
 }
 
 function checkEmailContents(){
