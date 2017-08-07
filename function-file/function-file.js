@@ -15,8 +15,8 @@ function getMailContents(event){
       body = async.value; 
     });*/
   
-  var contents = "";
-  contents = contents.concat("Subject: ", subject, "\n",
+  var tmp = "";
+  var contents = tmp.concat("Subject: ", subject, "\n",
                             'From: ', from, "\n",
                             "To: ", to, "\n",
                             "Created Time: ", createdTime, "\n");
