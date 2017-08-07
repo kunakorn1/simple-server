@@ -6,31 +6,24 @@ Office.initialize = function () {
 function getMailContents(event){
   var itemId = Office.context.mailbox.item.itemId.substring(0, 50);
   var subject = Office.context.mailbox.item.subject;
-  var from = Office.context.mailbox.item.from;
+  /*var from = Office.context.mailbox.item.from;
   var to = Office.context.mailbox.item.to;
   var createdTime = Office.context.mailbox.item.dateTimeCreated;
   var body;
   Office.context.mailbox.item.body.getAsync('text', function (async) 
     { 
       body = async.value; 
-    });
+    });*/
   
-  var contents = "Subject: " + subject + "\n" +
-      "\n" +
+  var contents = 'Subject: ' + subject + '\n';
+      /*"\n" +
       "From: " + from "\n" +
       "To: " + to "\n\n" +
       "Created Time: " + createdTime + "\n";
-      //body + "\n";
+      body + "\n";*/
   
-  Office.context.mailbox.item.notificationMessages.addAsync("contents", {
-    type: "informationalMessage",
-    icon: "blue-icon-16",
-    message: "Subject: " + contents,
-    persistent: false
-  });
-  
-  //download(contents,"email_" + itemId + ".txt");
-event.completed();
+  download(contents,"email_" + itemId + ".txt");
+  event.completed();
 }
 
 // Helper function to add a status message to
