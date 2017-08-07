@@ -10,7 +10,7 @@ var body = "";
 var bodyHTML = "";
 var completeFlg = 0;
 
-function getMailContents(event){
+function getMailContents(){
   
   itemId = Office.context.mailbox.item.itemId.substring(0, 50);
   subject = Office.context.mailbox.item.subject;
@@ -38,7 +38,7 @@ function getMailContents(event){
       bodyHTML = asyncResult.value;  
   });
   
-  event.completed();
+  
 }
 
 function checkEmailContents(){
