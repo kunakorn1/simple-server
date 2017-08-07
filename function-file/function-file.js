@@ -8,7 +8,6 @@ var from;
 var to = "xxx@xxx.com";
 var body = "";
 var bodyHTML = "";
-var completeFlg = 0;
 
 function getMailContents(){
   
@@ -19,21 +18,13 @@ function getMailContents(){
   var createdTime = Office.context.mailbox.item.dateTimeCreated;
   
   Office.context.mailbox.item.body.getAsync('text', function(asyncResult){
-    Office.context.mailbox.item.notificationMessages.replaceAsync("value", {
-      type: "informationalMessage",
-      message: asyncResult.value,
-      persistent: false
-    });
-    body = asyncResult.value; 
+    body = asyncResult.value;
+    checkEmailContents();
   });
   
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
-    Office.context.mailbox.item.notificationMessages.replaceAsync("value", {
-      type: "informationalMessage",
-      message: asyncResult.value,
-      persistent: false
-    });
-      bodyHTML = asyncResult.value;  
+    bodyHTML = asyncResult.value;  
+    checkEmailContents();
   });
   
   
@@ -50,7 +41,6 @@ function checkEmailContents(){
                            "Body in HTML:\r\n", bodyHTML);
   
     download(contents,"email_" + itemId + ".txt");
-    completeFlg = 1;
   }
 }
 
