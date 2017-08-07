@@ -19,7 +19,14 @@ function getMailContents(event){
       "Created Time: " + createdTime + "\n" +  
       body + "\n";
   
-  download(contents,"email_" + itemId + ".txt", "text/plain");
+  Office.context.mailbox.item.notificationMessages.addAsync("contents", {
+    type: "informationalMessage",
+    icon: "blue-icon-16",
+    message: "Subject: " + contents,
+    persistent: false
+  });
+  
+  //download(contents,"email_" + itemId + ".txt");
 event.completed();
 }
 
@@ -173,15 +180,15 @@ function callback(asyncResult)  {
 }
 
 // Function to download data to a file
-function download(data, filename, type) {
-    var file = new Blob([data], {type: type});
+function download(data, filename) {
+    var file = new Blob([data], {type: "text/plain;charset=utf-8"});
     if (window.navigator.msSaveOrOpenBlob) // IE10+
         window.navigator.msSaveOrOpenBlob(file, filename);
     else { // Others
         var a = document.createElement("a"),
                 url = URL.createObjectURL(file);
-        a.href = url;
-        a.download = filename;
+        a.setAttribute("href",url);
+        a.setAttribute("download",filename);
         document.body.appendChild(a);
         a.click();
         setTimeout(function() {
