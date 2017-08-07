@@ -8,6 +8,7 @@ var from;
 var to = "xxx@xxx.com";
 var body = "";
 var bodyHTML = "";
+var completeFlg = 0;
 
 function getMailContents(event){
   
@@ -34,15 +35,12 @@ function getMailContents(event){
     }
   });
   
-  var tmp = "";
-    var contents = tmp.concat("Subject: ", subject, "\r\n",
-                           "From: ", from, "\r\n",
-                           "To: ", to, "\r\n",
-                           "Created Time: ", createdTime, "\r\n", "\r\n",
-                           "Body in text plain:\r\n", body, "\r\n\r\n",
-                           "Body in HTML:\r\n", bodyHTML);
-  
-    download(contents,"email_" + itemId + ".txt");
+  for (i=1; i <= 20; i++){
+    setTimeout(checkEmailContents, 1000);
+    if (completeFlg === 1){
+      break;
+    }
+  }
   
   event.completed();
 }
@@ -67,6 +65,7 @@ function checkEmailContents(){
                            "Body in HTML:\r\n", bodyHTML);
   
     download(contents,"email_" + itemId + ".txt");
+    completeFlg = 1;
   }
 }
 
