@@ -59,6 +59,8 @@ function getSubject(event) {
     persistent: false
   });
   
+  download(subject, 'subject.txt', 'text/plain');
+  
   event.completed();
 }
 
