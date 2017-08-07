@@ -6,8 +6,7 @@ Office.initialize = function () {
 function getMailContents(event){
   var itemId = Office.context.mailbox.item.itemId.substring(0, 50);
   var subject = Office.context.mailbox.item.subject;
-  var fromว
-  Office.context.mailbox.item.from.getAsync('text', function (async) { from = async.value; });*/
+  var from = Office.context.mailbox.item.from;
   /*var to = Office.context.mailbox.item.to;
   var createdTime = Office.context.mailbox.item.dateTimeCreated;
   var body;
@@ -16,8 +15,8 @@ function getMailContents(event){
       body = async.value; 
     });*/
   
-  var contents = 'Subject: ' + subject + '\n' +
-      'From: ' + from '\n';
+  var contents = string.concat("Subject: ", subject, "\n",
+                              'From: ', from, "\n");
       /*"To: " + to "\n\n" +
       "Created Time: " + createdTime + "\n";
       body + "\n";*/
