@@ -16,10 +16,9 @@ function getMailContents(event){
   subject = Office.context.mailbox.item.subject;
   from = Office.context.mailbox.item.from.emailAddress;
   
-  //Office.context.mailbox.item.to.getAsync('text', emailAddressToCallback);
   var createdTime = Office.context.mailbox.item.dateTimeCreated;
   
-  Office.context.mailbox.item.body.getAsync(function(asyncResult){
+  Office.context.mailbox.item.body.getAsync('text', function(asyncResult){
     Office.context.mailbox.item.notificationMessages.replaceAsync("value", {
       type: "informationalMessage",
       icon: icon,
@@ -30,7 +29,6 @@ function getMailContents(event){
   });
   
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
-    Office.context.mailbox.item.body.getAsync(function(asyncResult){
     Office.context.mailbox.item.notificationMessages.replaceAsync("value", {
       type: "informationalMessage",
       icon: icon,
@@ -40,23 +38,7 @@ function getMailContents(event){
       bodyHTML = asyncResult.value;  
   });
   
- /* for (i=1; i <= 20; i++){
-    setTimeout(checkEmailContents, 1000);
-    if (completeFlg === 1){
-      break;
-    }
-  }*/
-  
   event.completed();
-}
-
-function emailAddressToCallback(asyncResult){
-  if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
-      to = "Cannot get email address from 'To'.";  
-    }
-    else{
-      to = asyncResult.value;  
-    }
 }
 
 function checkEmailContents(){
