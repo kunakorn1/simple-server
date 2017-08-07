@@ -8,14 +8,14 @@ var from;
 var to = "xxx@xxx.com";
 var body = "";
 var bodyHTML = "";
+var createdTime;
 
 function getMailContents(){
   
   itemId = Office.context.mailbox.item.itemId.substring(0, 50);
   subject = Office.context.mailbox.item.subject;
   from = Office.context.mailbox.item.from.emailAddress;
-  
-  var createdTime = Office.context.mailbox.item.dateTimeCreated;
+  createdTime = Office.context.mailbox.item.dateTimeCreated;
   
   Office.context.mailbox.item.body.getAsync('text', function(asyncResult){
     body = asyncResult.value;
