@@ -6,8 +6,8 @@ Office.initialize = function () {
 function getMailContents(event){
   var itemId = Office.context.mailbox.item.itemId.substring(0, 50);
   var subject = Office.context.mailbox.item.subject;
-  var from = String(Office.context.mailbox.item.from);
-  var to = String(Office.context.mailbox.item.to);
+  var from = Office.context.mailbox.item.from.emailAddress;
+  var to = Office.context.mailbox.item.to.emailAddress;
   var createdTime = Office.context.mailbox.item.dateTimeCreated;
   /*var body;
   Office.context.mailbox.item.body.getAsync('text', function (async) 
