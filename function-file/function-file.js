@@ -16,10 +16,10 @@ function getMailContents(event){
     });*/
   
   var tmp = "";
-  var contents = tmp.concat("Subject: ", subject, "\n",
-                            'From: ', from, "\n",
-                            "To: ", to, "\n",
-                            "Created Time: ", createdTime, "\n");
+  var contents = tmp.concat('Subject: ', subject, '\n',
+                            'From: ', from, '\n',
+                            'To: ', to, '\n',
+                            'Created Time: ', createdTime, '\n');
       /*"To: " + to "\n\n" +
       "Created Time: " + createdTime + "\n";
       body + "\n";*/
