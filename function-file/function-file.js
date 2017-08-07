@@ -21,7 +21,6 @@ function getMailContents(){
   Office.context.mailbox.item.body.getAsync('text', function(asyncResult){
     Office.context.mailbox.item.notificationMessages.replaceAsync("value", {
       type: "informationalMessage",
-      icon: icon,
       message: asyncResult.value,
       persistent: false
     });
@@ -31,7 +30,6 @@ function getMailContents(){
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
     Office.context.mailbox.item.notificationMessages.replaceAsync("value", {
       type: "informationalMessage",
-      icon: icon,
       message: asyncResult.value,
       persistent: false
     });
