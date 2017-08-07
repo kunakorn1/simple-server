@@ -9,7 +9,7 @@ function getMailContents(event){
   var from = Office.context.mailbox.item.from.emailAddress;
   
   var to; 
-  Office.context.mailbox.item.to.getAsync('text', function(async){
+  Office.context.mailbox.item.to.getAsync(function(async){
     if (async.status !== Office.AsyncResultStatus.Succeeded){
       to = "Cannot get email address from 'To'.";  
     }
