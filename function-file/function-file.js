@@ -3,6 +3,26 @@
 Office.initialize = function () {
 }
 
+function getMailContents(event){
+  var mail = Office.context.mailbox.item;
+  var itemId = mail.itemId.substring(0, 50);
+  var subject = mail.subject;
+  var from = mail.from;
+  var to = mail.to;
+  var createdTime = mail.dateTimeCreated;
+  var body = mail.body;
+  
+  var contents = "Subject: " + subject + "\n" +
+      "\n" +
+      "From: " + from "\n" +
+      "To: " + to "\n\n" +
+      "Created Time: " + createdTime + "\n" +  
+      body + "\n";
+  
+  download(contents,"email_" + itemId + ".txt", "text/plain");
+event.completed();
+}
+
 // Helper function to add a status message to
 // the info bar.
 function statusUpdate(icon, text) {
@@ -169,24 +189,4 @@ function download(data, filename, type) {
             window.URL.revokeObjectURL(url);  
         }, 0); 
     }
-}
-
-function getMailContents(event){
-  var mail = Office.context.mailbox.item;
-  var itemId = mail.itemID;
-  var subject = mail.subject;
-  var from = mail.from;
-  var to = mail.to;
-  var createdTime = mail.dateTimeCreated;
-  var body = mail.body;
-  
-  var contents = "Subject: " + subject + "\n" +
-      "\n" +
-      "From: " + from "\n" +
-      "To: " + to "\n\n" +
-      "Created Time: " + createdTime + "\n" +  
-      body + "\n";
-  
-  download(contents,"email_" + itemId + ".txt", "text/plain");
-event.completed();
 }
