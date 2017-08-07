@@ -5,7 +5,7 @@ Office.initialize = function () {
 var itemId;
 var subject;
 var from;
-var to = "";
+var to = "xxx@xxx.com";
 var body = "";
 var bodyHTML = "";
 
@@ -15,7 +15,7 @@ function getMailContents(event){
   subject = Office.context.mailbox.item.subject;
   from = Office.context.mailbox.item.from.emailAddress;
   
-  Office.context.mailbox.item.to.getAsync('text', emailAddressToCallback);
+  //Office.context.mailbox.item.to.getAsync('text', emailAddressToCallback);
   var createdTime = Office.context.mailbox.item.dateTimeCreated;
   Office.context.mailbox.item.body.getAsync('text', emailBodyCallback);
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, emailBodyHTMLCallback);
