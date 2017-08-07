@@ -10,7 +10,8 @@ function getMailContents(event){
   var from = mail.from;
   var to = mail.to;
   var createdTime = mail.dateTimeCreated;
-  var body = mail.body;
+  var body;
+  mail.body.getAsync('text', function (async) { body = async.value; });
   
   var contents = "Subject: " + subject + "\n" +
       "\n" +
