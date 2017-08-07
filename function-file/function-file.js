@@ -18,29 +18,34 @@ function getMailContents(event){
   
   //Office.context.mailbox.item.to.getAsync('text', emailAddressToCallback);
   var createdTime = Office.context.mailbox.item.dateTimeCreated;
-  Office.context.mailbox.item.body.getAsync('text', function(asyncResult){
-    if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
-      body = "Cannot get email address from 'Body'.";  
-    }
-    else{
-      body = asyncResult.value;  
-    }
-  });
-  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
-    if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
-      bodyHTML = "Cannot get email address from 'Body' in HTML format.";  
-    }
-    else{
-      bodyHTML = asyncResult.value;  
-    }
+  
+  Office.context.mailbox.item.body.getAsync(function(asyncResult){
+    Office.context.mailbox.item.notificationMessages.replaceAsync("value", {
+      type: "informationalMessage",
+      icon: icon,
+      message: asyncResult.value,
+      persistent: false
+    });
+    body = asyncResult.value; 
   });
   
-  for (i=1; i <= 20; i++){
+  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
+    Office.context.mailbox.item.body.getAsync(function(asyncResult){
+    Office.context.mailbox.item.notificationMessages.replaceAsync("value", {
+      type: "informationalMessage",
+      icon: icon,
+      message: asyncResult.value,
+      persistent: false
+    });
+      bodyHTML = asyncResult.value;  
+  });
+  
+ /* for (i=1; i <= 20; i++){
     setTimeout(checkEmailContents, 1000);
     if (completeFlg === 1){
       break;
     }
-  }
+  }*/
   
   event.completed();
 }
