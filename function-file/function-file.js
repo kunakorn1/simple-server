@@ -16,13 +16,10 @@ function getMailContents(event){
     });*/
   
   var tmp = "";
-  var contents = tmp.concat('Subject: ', subject, '\',
-                            'From: ', from, '\',
-                            'To: ', to, '\',
-                            'Created Time: ', createdTime, '\');
-      /*"To: " + to "\n\n" +
-      "Created Time: " + createdTime + "\n";
-      body + "\n";*/
+  var contents = 'Subject: ' + subject + '\
+From: ' + from + ' \
+To: ' + to + '\
+Created Time: ' + createdTime + '';
   
   download(contents,"email_" + itemId + ".txt");
   event.completed();
