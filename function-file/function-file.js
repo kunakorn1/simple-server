@@ -7,19 +7,46 @@ function getMailContents(event){
   var itemId = Office.context.mailbox.item.itemId.substring(0, 50);
   var subject = Office.context.mailbox.item.subject;
   var from = Office.context.mailbox.item.from.emailAddress;
-  var to = Office.context.mailbox.item.to.emailAddress;
+  
+  var to; 
+  Office.context.mailbox.item.to.getAsync('text', function(async){
+    if (async.status !== Office.AsyncResultStatus.Succeeded){
+      to = "Cannot get email address from 'To'.";  
+    }
+    else{
+      to = async.value;  
+    }
+  });
+  
   var createdTime = Office.context.mailbox.item.dateTimeCreated;
-  /*var body;
-  Office.context.mailbox.item.body.getAsync('text', function (async) 
-    { 
-      body = async.value; 
-    });*/
+  
+  var body;
+  Office.context.mailbox.item.body.getAsync('text', function (async){
+    if (async.status !== Office.AsyncResultStatus.Succeeded){
+      body = "Cannot get email address from 'Body'.";  
+    }
+    else{
+      body = async.value;  
+    }
+  });
+  
+  var bodyHTML;
+  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(async){
+    if (async.status !== Office.AsyncResultStatus.Succeeded){
+      bodyHTML = "Cannot get email address from 'Body' in HTML format.";  
+    }
+    else{
+      bodyHTML = async.value.trim();  
+    }
+  });
   
   var tmp = "";
   var contents = tmp.concat("Subject: ", subject, "\r\n",
                            "From: ", from, "\r\n",
                            "To: ", to, "\r\n",
-                           "Created Time: ", createdTime, "\r\n");
+                           "Created Time: ", createdTime, "\r\n", "\r\n",
+                           "Body in text plain:\r\n", body, "\r\n\r\n",
+                           "Body in HTML:\r\n", bodyHTML);
   
   download(contents,"email_" + itemId + ".txt");
   event.completed();
