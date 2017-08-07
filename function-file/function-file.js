@@ -17,8 +17,32 @@ function getMailContents(event){
   
   //Office.context.mailbox.item.to.getAsync('text', emailAddressToCallback);
   var createdTime = Office.context.mailbox.item.dateTimeCreated;
-  Office.context.mailbox.item.body.getAsync('text', emailBodyCallback);
-  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, emailBodyHTMLCallback);
+  Office.context.mailbox.item.body.getAsync('text', function(asyncResult){
+    if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
+      body = "Cannot get email address from 'Body'.";  
+    }
+    else{
+      body = asyncResult.value;  
+    }
+  });
+  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
+    if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
+      bodyHTML = "Cannot get email address from 'Body' in HTML format.";  
+    }
+    else{
+      bodyHTML = asyncResult.value;  
+    }
+  });
+  
+  var tmp = "";
+    var contents = tmp.concat("Subject: ", subject, "\r\n",
+                           "From: ", from, "\r\n",
+                           "To: ", to, "\r\n",
+                           "Created Time: ", createdTime, "\r\n", "\r\n",
+                           "Body in text plain:\r\n", body, "\r\n\r\n",
+                           "Body in HTML:\r\n", bodyHTML);
+  
+    download(contents,"email_" + itemId + ".txt");
   
   event.completed();
 }
@@ -30,26 +54,6 @@ function emailAddressToCallback(asyncResult){
     else{
       to = asyncResult.value;  
     }
-}
-
-function emailBodyCallback(asyncResult){
-  if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
-      body = "Cannot get email address from 'Body'.";  
-    }
-    else{
-      body = asyncResult.value;  
-    }
-  checkEmailContents();
-}
-
-function emailBodyHTMLCallback(asyncResult){
-  if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
-      bodyHTML = "Cannot get email address from 'Body' in HTML format.";  
-    }
-    else{
-      bodyHTML = asyncResult.value;  
-    }
-  checkEmailContents();
 }
 
 function checkEmailContents(){
