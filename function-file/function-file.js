@@ -1,56 +1,105 @@
-// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE.txt in the project root for license information.
 
 Office.initialize = function () {
 }
 
+var itemId;
+var subject;
+var from;
+var to = "";
+var body = "";
+var bodyHTML = "";
+
 function getMailContents(event){
-  var itemId = Office.context.mailbox.item.itemId.substring(0, 50);
-  var subject = Office.context.mailbox.item.subject;
-  var from = Office.context.mailbox.item.from.emailAddress;
   
-  var to; 
-  Office.context.mailbox.item.to.getAsync(function(async){
-    if (async.status !== Office.AsyncResultStatus.Succeeded){
+  itemId = Office.context.mailbox.item.itemId.substring(0, 50);
+  subject = Office.context.mailbox.item.subject;
+  from = Office.context.mailbox.item.from.emailAddress;
+  
+  Office.context.mailbox.item.to.getAsync('text', emailAddressToCallback);
+  var createdTime = Office.context.mailbox.item.dateTimeCreated;
+  Office.context.mailbox.item.body.getAsync('text', emailBodyCallback);
+  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, emailBodyHTMLCallback);
+  
+  event.completed();
+}
+
+function emailAddressToCallback(asyncResult){
+  if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
       to = "Cannot get email address from 'To'.";  
     }
     else{
-      to = async.value;  
+      to = asyncResult.value;  
     }
-  });
-  
-  var createdTime = Office.context.mailbox.item.dateTimeCreated;
-  
-  var body;
-  Office.context.mailbox.item.body.getAsync('text', function (async){
-    if (async.status !== Office.AsyncResultStatus.Succeeded){
+}
+
+function emailBodyCallback(asyncResult){
+  if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
       body = "Cannot get email address from 'Body'.";  
     }
     else{
-      body = async.value;  
+      body = asyncResult.value;  
     }
-  });
-  
-  var bodyHTML;
-  Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(async){
-    if (async.status !== Office.AsyncResultStatus.Succeeded){
+}
+
+function emailBodyHTMLCallback(asyncResult){
+  if (asyncResult.status !== Office.AsyncResultStatus.Succeeded){
       bodyHTML = "Cannot get email address from 'Body' in HTML format.";  
     }
     else{
-      bodyHTML = async.value.trim();  
+      bodyHTML = asyncResult.value;  
     }
-  });
-  
-  var tmp = "";
-  var contents = tmp.concat("Subject: ", subject, "\r\n",
+}
+
+function checkEmailContents(){
+  if(to !== "" && body !== "" && bodyHTML != ""){
+    var tmp = "";
+    var contents = tmp.concat("Subject: ", subject, "\r\n",
                            "From: ", from, "\r\n",
                            "To: ", to, "\r\n",
                            "Created Time: ", createdTime, "\r\n", "\r\n",
                            "Body in text plain:\r\n", body, "\r\n\r\n",
                            "Body in HTML:\r\n", bodyHTML);
   
-  download(contents,"email_" + itemId + ".txt");
-  event.completed();
+    download(contents,"email_" + itemId + ".txt");
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Helper function to add a status message to
 // the info bar.
