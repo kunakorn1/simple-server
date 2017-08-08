@@ -49,7 +49,7 @@ function checkEmailContents(){
                            "Body in HTML:\r\n", bodyHTML, "\r\n",
                              "</body>", "\r\n",
                              "</head>", "\r\n",
-                             </html>);
+                             "</html>");
   
     download(contents,"email_" + itemId + ".html");
   }
