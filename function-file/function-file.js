@@ -12,8 +12,10 @@ var mailCC = "";
 var mailBcc = "";
 var bodyHTML = "";
 var createdTime;
+var downloadHtmlFlg = 0;
+var downloadAttachmentsFlg = 0;
 
-function getMailContents(){
+function getMailContents(event){
   
   itemId = Office.context.mailbox.item.itemId.substring(0, 50);
   subject = Office.context.mailbox.item.subject;
@@ -60,6 +62,7 @@ function getMailContents(){
   
     download(contents,"email_" + itemId + ".html");
     getAttachmentFiles();
+    event.completed();
   });
 }
 
@@ -78,7 +81,7 @@ function download(data, filename) {
         setTimeout(function() {
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);  
-        }, 0); 
+        }, 0);
     }
 }
 
