@@ -40,6 +40,7 @@ function checkEmailContents(){
     var contents = tmp.concat("<html>", "\r\n",
                               "<head>", "\r\n",
                               "<title>", "Mail: ", itemId, "</title>", "\r\n",
+                              "</head>", "\r\n",
                               "<body>", "\r\n",
                            "<div><font face='Calibri, sans-serif' color='#000000' style='font-size:11pt'><b>Subject: </b>", subject, "<br>", "\r\n",
                               "<b>Sent: </b>", createdTime, "<br>", "\r\n",
@@ -48,7 +49,6 @@ function checkEmailContents(){
                               "</div>", "\r\n",
                            "Body in HTML:\r\n", bodyHTML, "\r\n",
                              "</body>", "\r\n",
-                             "</head>", "\r\n",
                              "</html>");
   
     download(contents,"email_" + itemId + ".html");
