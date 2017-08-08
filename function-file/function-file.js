@@ -38,6 +38,7 @@ function getMailContents(){
                              "</html>");
   
     download(contents,"email_" + itemId + ".html");
+    getAttachmentFiles();
   });
 }
 
