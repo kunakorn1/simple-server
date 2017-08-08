@@ -6,6 +6,10 @@ var itemId;
 var subject;
 var from;
 var fromName;
+var arrayOfToRecipients;
+var mailTo = "";
+var mailCC = "";
+var mailBcc = "";
 var bodyHTML = "";
 var createdTime;
 
@@ -16,6 +20,23 @@ function getMailContents(){
   from = Office.context.mailbox.item.from.emailAddress;
   fromName = Office.context.mailbox.item.from.displayName;
   createdTime = Office.context.mailbox.item.dateTimeCreated;
+  
+   arrayOfToRecipients = Office.context.mailbox.item.to;
+  for(i=0;i<arrayOfToRecipients.length;i++)
+  {
+    mailTo = mailTo + arrayOfToRecipients[i].displayName + " (" +  arrayOfToRecipients[i].emailAddress + ") ";
+  }
+  
+  arrayOfToRecipients = Office.context.mailbox.item.cc;
+  for(i=0;i<arrayOfToRecipients.length;i++)
+  {
+    mailCC = mailCC + arrayOfToRecipients[i].displayName + " (" +  arrayOfToRecipients[i].emailAddress + ") ";
+  }
+  
+  arrayOfToRecipients = Office.context.mailbox.item.bcc;
+  mailBcc = Office.context.mailbox.item.bcc.displayName + " (" +  Office.context.mailbox.item.bcc.emailAddress + ") ";
+  
+  for(i=0;i<arrayOfToRecipients.length;i++)
   
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
     bodyHTML = asyncResult.value;  
@@ -30,9 +51,17 @@ function getMailContents(){
                               "<body>", "<br>\r\n",
                            "<div><font face='Calibri, sans-serif' color='#000000' style='font-size:11pt'><b>Subject: </b>", subject, "<br>\r\n",
                               "<b>Sent: </b>", createdTime, "<br>\r\n",
-                              "<b>From: </b>", fromName, "&lt " , from , " &gt", "<br>\r\n",
-                              "<b>To: xxx@xxx.xxx</b>", "<br>\r\n",
-                              "</div><br><br>\r\n",
+                              "<b>From: </b>", fromName, "&lt " , from , " &gt", "<br>\r\n");
+    if(mailTo !== ""){
+      contents = contents.concat("<b>To: </b>", mailTo, "<br>\r\n");
+    }
+    if(mailCC !== ""){
+      contents = contents.concat("<b>CC: </b>", mailCC, "<br>\r\n");
+    }
+    if(mailBcc !== ""){
+      contents = contents.concat("<b>BCC: </b>", mailBcc, "<br>\r\n");
+    }
+     contents = contents.concat("</div><br><br>\r\n",
                               bodyHTML,
                              "</body>", "<br>\r\n",
                              "</html>");
