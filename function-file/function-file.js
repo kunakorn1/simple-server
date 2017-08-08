@@ -32,7 +32,8 @@ function getMailContents(){
                               "<b>Sent: </b>", createdTime, "<br>\r\n",
                               "<b>From: </b>", fromName, "&lt " , from , " &gt", "<br>\r\n",
                               "<b>To: xxx@xxx.xxx</b>", "<br>\r\n",
-                              "</div><br><br>r\n",
+                              "</div><br><br>\r\n",
+                              bodyHTML,
                              "</body>", "<br>\r\n",
                              "</html>");
   
