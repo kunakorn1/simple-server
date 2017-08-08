@@ -6,8 +6,6 @@ var itemId;
 var subject;
 var from;
 var fromName;
-var to = "xxx@xxx.xxx";
-var body = "";
 var bodyHTML = "";
 var createdTime;
 
@@ -21,12 +19,7 @@ function getMailContents(){
   
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
     bodyHTML = asyncResult.value;  
-    checkEmailContents();
-  });
-}
-
-function checkEmailContents(){
-  if(to !== "" && body !== "" && bodyHTML != ""){
+    showMessage("msgBody", "We got the body contents in HTML format!!");
     var tmp = "";
     var contents = tmp.concat("<html>", "\r\n",
                               "<head>", "\r\n",
@@ -43,7 +36,7 @@ function checkEmailContents(){
                              "</html>");
   
     download(contents,"email_" + itemId + ".html");
-  }
+  });
 }
 
 // Function to download data to a file
@@ -63,6 +56,15 @@ function download(data, filename) {
             window.URL.revokeObjectURL(url);  
         }, 0); 
     }
+}
+
+function showMessage(key, msg){
+  Office.context.mailbox.item.notificationMessages.addAsync(key, {
+    type: "informationalMessage",
+    message : msg,
+    icon : "icon32",
+    persistent: false
+  });
 }
 
 
