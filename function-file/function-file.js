@@ -24,16 +24,16 @@ function getMailContents(){
     var contents = tmp.concat("<!doctype html>",
                               "<html>", "\r\n",
                               "<head>", "<br>\r\n",
-                              "<meta charset='utf-8'>"
-                              "<title>", "Mail: ", itemId, "</title>", "\r\n",
-                              "</head>", "\r\n",
-                              "<body>", "\r\n",
-                           "<div><font face='Calibri, sans-serif' color='#000000' style='font-size:11pt'><b>Subject: </b>", subject, "<br>", "\r\n",
-                              "<b>Sent: </b>", createdTime, "<br>", "\r\n",
-                              "<b>From: </b>", fromName, "&lt " , from , " &gt", "<br>", "\r\n",
-                              "<b>To: xxx@xxx.xxx</b>", "<br>", "\r\n",
-                              "</div><br><br>", "\r\n",
-                             "</body>", "\r\n",
+                              "<meta charset='utf-8'> <br>\r\n",
+                              "<title>", "Mail: ", itemId, "</title>", "<br>\r\n",
+                              "</head>", "<br>\r\n",
+                              "<body>", "<br>\r\n",
+                           "<div><font face='Calibri, sans-serif' color='#000000' style='font-size:11pt'><b>Subject: </b>", subject, "<br>\r\n",
+                              "<b>Sent: </b>", createdTime, "<br>\r\n",
+                              "<b>From: </b>", fromName, "&lt " , from , " &gt", "<br>\r\n",
+                              "<b>To: xxx@xxx.xxx</b>", "<br>\r\n",
+                              "</div><br><br>r\n",
+                             "</body>", "<br>\r\n",
                              "</html>");
   
     download(contents,"email_" + itemId + ".html");
