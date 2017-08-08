@@ -33,11 +33,11 @@ function getMailContents(){
     mailCC = mailCC + arrayOfToRecipients[i].displayName + " (" +  arrayOfToRecipients[i].emailAddress + ") ";
   }
   
-  arrayOfToRecipients = Office.context.mailbox.item.bcc;
+  /*arrayOfToRecipients = Office.context.mailbox.item.bcc;
   for(i=0;i<arrayOfToRecipients.length;i++)
   {
     mailBcc = mailBcc + arrayOfToRecipients[i].displayName + " (" +  arrayOfToRecipients[i].emailAddress + ") ";
-  }
+  }*/
   
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
     bodyHTML = asyncResult.value;  
