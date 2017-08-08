@@ -19,11 +19,6 @@ function getMailContents(){
   fromName = Office.context.mailbox.item.from.displayName;
   createdTime = Office.context.mailbox.item.dateTimeCreated;
   
-  /*Office.context.mailbox.item.body.getAsync('text', function(asyncResult){
-    body = asyncResult.value;
-    checkEmailContents();
-  });*/
-  
   Office.context.mailbox.item.to.getAsync(function(asyncResult){
     var arReceipient = asyncResult.value;
     to = "";
@@ -56,7 +51,7 @@ function checkEmailContents(){
                              "</head>", "\r\n",
                              </html>);
   
-    download(contents,"email_" + itemId + ".txt");
+    download(contents,"email_" + itemId + ".html");
   }
 }
 
