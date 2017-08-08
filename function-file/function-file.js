@@ -5,7 +5,8 @@ Office.initialize = function () {
 var itemId;
 var subject;
 var from;
-var to = "xxx@xxx.com";
+var fromName;
+var to;
 var body = "";
 var bodyHTML = "";
 var createdTime;
@@ -15,10 +16,20 @@ function getMailContents(){
   itemId = Office.context.mailbox.item.itemId.substring(0, 50);
   subject = Office.context.mailbox.item.subject;
   from = Office.context.mailbox.item.from.emailAddress;
+  fromName = Office.context.mailbox.item.from.displayName;
   createdTime = Office.context.mailbox.item.dateTimeCreated;
   
-  Office.context.mailbox.item.body.getAsync('text', function(asyncResult){
+  /*Office.context.mailbox.item.body.getAsync('text', function(asyncResult){
     body = asyncResult.value;
+    checkEmailContents();
+  });*/
+  
+  Office.context.mailbox.item.to.getAsync(function(asyncResult){
+    var arReceipient = asyncResult.value;
+    to = "";
+    for(i=0;i < arReceipient.lenght; i++){
+      to += arReceipient[i].displayName + "&lt " + arReceipient[i].emailAddress + " &gt  ";
+    }
     checkEmailContents();
   });
   
@@ -26,25 +37,47 @@ function getMailContents(){
     bodyHTML = asyncResult.value;  
     checkEmailContents();
   });
-  
-  
 }
 
 function checkEmailContents(){
   if(to !== "" && body !== "" && bodyHTML != ""){
     var tmp = "";
-    var contents = tmp.concat("Subject: ", subject, "\r\n",
-                           "From: ", from, "\r\n",
-                           "To: ", to, "\r\n",
-                           "Created Time: ", createdTime, "\r\n", "\r\n",
-                           "Body in text plain:\r\n", body, "\r\n\r\n",
-                           "Body in HTML:\r\n", bodyHTML);
+    var contents = tmp.concat("<html>", "\r\n",
+                              "<head>", "\r\n",
+                              "<title>", "Mail: ", itemId, "</title>", "\r\n",
+                              "<body>", "\r\n",
+                           "<div><font face='Calibri, sans-serif' color='#000000' style='font-size:11pt'><b>Subject: </b>", subject, "<br>", "\r\n",
+                              "<b>Sent: </b>", createdTime, "<br>", "\r\n",
+                              "<b>From: </b>", fromName, "<br> ", "&lt " , from , " &gt", "\r\n",
+                              "<b>To: </b>", to, "<br>", "\r\n",
+                              "</div>", "\r\n",
+                           "Body in HTML:\r\n", bodyHTML, "\r\n",
+                             "</body>", "\r\n",
+                             "</head>", "\r\n",
+                             </html>);
   
     download(contents,"email_" + itemId + ".txt");
   }
 }
 
-
+// Function to download data to a file
+function download(data, filename) {
+    var file = new Blob([data], {type: "text/plain;charset=utf-8"});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.setAttribute("href",url);
+        a.setAttribute("download",filename);
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+}
 
 
 
@@ -230,21 +263,4 @@ function callback(asyncResult)  {
   download(context, 'context.txt', 'text/plain');
 }
 
-// Function to download data to a file
-function download(data, filename) {
-    var file = new Blob([data], {type: "text/plain;charset=utf-8"});
-    if (window.navigator.msSaveOrOpenBlob) // IE10+
-        window.navigator.msSaveOrOpenBlob(file, filename);
-    else { // Others
-        var a = document.createElement("a"),
-                url = URL.createObjectURL(file);
-        a.setAttribute("href",url);
-        a.setAttribute("download",filename);
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);  
-        }, 0); 
-    }
-}
+
