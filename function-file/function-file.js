@@ -36,8 +36,6 @@ function getMailContents(){
   arrayOfToRecipients = Office.context.mailbox.item.bcc;
   mailBcc = Office.context.mailbox.item.bcc.displayName + " (" +  Office.context.mailbox.item.bcc.emailAddress + ") ";
   
-  for(i=0;i<arrayOfToRecipients.length;i++)
-  
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
     bodyHTML = asyncResult.value;  
     showMessage("msgBody", "We got the body contents in HTML format!!");
