@@ -29,7 +29,7 @@ function getMailContents(){
                            "<div><font face='Calibri, sans-serif' color='#000000' style='font-size:11pt'><b>Subject: </b>", subject, "<br>", "\r\n",
                               "<b>Sent: </b>", createdTime, "<br>", "\r\n",
                               "<b>From: </b>", fromName, "<br> ", "&lt " , from , " &gt", "\r\n",
-                              "<b>To: </b>", to, "<br>", "\r\n",
+                              "<b>To: xxx@xxx.xxx</b>", "<br>", "\r\n",
                               "</div>", "\r\n",
                            "Body in HTML:\r\n", bodyHTML, "\r\n",
                              "</body>", "\r\n",
