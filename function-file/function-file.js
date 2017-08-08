@@ -6,7 +6,7 @@ var itemId;
 var subject;
 var from;
 var fromName;
-var to;
+var to = "xxx@xxx.xxx";
 var body = "";
 var bodyHTML = "";
 var createdTime;
@@ -18,19 +18,6 @@ function getMailContents(){
   from = Office.context.mailbox.item.from.emailAddress;
   fromName = Office.context.mailbox.item.from.displayName;
   createdTime = Office.context.mailbox.item.dateTimeCreated;
-  
-  /*Office.context.mailbox.item.to.getAsync(function(asyncResult){
-    var arReceipient = asyncResult.value;
-    to = "";
-    for(i=0;i < arReceipient.lenght; i++){
-      to += arReceipient[i].displayName + "&lt " + arReceipient[i].emailAddress + " &gt  ";
-    }
-    checkEmailContents();
-  });*/
-  
-  for(i=0;i < Office.context.mailbox.item.to.lenght; i++){
-      to += arReceipient[i].displayName + "&lt " + arReceipient[i].emailAddress + " &gt  ";
-    }
   
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
     bodyHTML = asyncResult.value;  
