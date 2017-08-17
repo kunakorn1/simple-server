@@ -21,7 +21,7 @@
 
   <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
   <IconUrl DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog.ico" />
-  <HighResolutionIconUrl DefaultValue="https://kunakorn1.github.io/simple-server/assets/hi-res-icon.png"/>
+  <HighResolutionIconUrl DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog.ico"/>
 
   <!--If you plan to submit this add-in to the Office Store, uncomment the SupportUrl element below-->
   <!--SupportUrl DefaultValue="[Insert the URL of a page that provides support information for the app]" /-->
@@ -83,9 +83,9 @@
                     <Description resid="paneReadSuperTipDescription" />
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="icon16" />
-                    <bt:Image size="32" resid="icon32" />
-                    <bt:Image size="80" resid="icon80" />
+                    <bt:Image size="16" resid="tog_ico" />
+                    <bt:Image size="32" resid="tog_ico" />
+                    <bt:Image size="80" resid="tog_ico" />
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
                         <FunctionName>getMailContents</FunctionName>
