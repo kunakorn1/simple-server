@@ -37,7 +37,6 @@ function getMailContents(event){
   
   Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, function(asyncResult){
     bodyHTML = asyncResult.value;  
-    showMessage("msgBody", "We got the body contents in HTML format!!");
     var tmp = "";
     var contents = tmp.concat("<!doctype html>",
                               "<html>", "\r\n",
