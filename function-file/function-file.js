@@ -85,33 +85,4 @@ function download(data, filename) {
     }
 }
 
-function showMessage(key, msg){
-  Office.context.mailbox.item.notificationMessages.addAsync(key, {
-    type: "informationalMessage",
-    message : msg,
-    icon : "icon32",
-    persistent: false
-  });
-}
-
-function getAttachmentFiles(){
-  var _Item = Office.context.mailbox.item;
-var outputString = "";
-
-if (_Item.attachments.length > 0) {
-  for (i = 0 ; i < _Item.attachments.length ; i++) {
-      var _att = _Item.attachments[i];
-      outputString += "<BR>" + i + ". Name: ";
-      outputString += _att.name;
-      outputString += "<BR>ID: " + _att.id;
-      outputString += "<BR>contentType: " + _att.contentType;
-      outputString += "<BR>size: " + _att.size;
-      outputString += "<BR>attachmentType: " + _att.attachmentType;
-      outputString += "<BR>isInline: " + _att.isInline;
-    }
-  
-  download(outputString, "AttachmentFiles.txt");
-  }
-}
-
 
