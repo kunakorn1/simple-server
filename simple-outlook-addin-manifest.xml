@@ -20,8 +20,8 @@
   <Description DefaultValue="This is sample outlook add-in using html and javascript."/>
 
   <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
-  <IconUrl DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog.ico" />
-  <HighResolutionIconUrl DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog.ico"/>
+  <IconUrl DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog-80.png"/>
 
   <!--If you plan to submit this add-in to the Office Store, uncomment the SupportUrl element below-->
   <!--SupportUrl DefaultValue="[Insert the URL of a page that provides support information for the app]" /-->
@@ -83,9 +83,9 @@
                     <Description resid="paneReadSuperTipDescription" />
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="tog_ico" />
-                    <bt:Image size="32" resid="tog_ico" />
-                    <bt:Image size="80" resid="tog_ico" />
+                    <bt:Image size="16" resid="icon16" />
+                    <bt:Image size="32" resid="icon32" />
+                    <bt:Image size="80" resid="icon80" />
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
                         <FunctionName>getMailContents</FunctionName>
@@ -102,10 +102,9 @@
 
     <Resources>
       <bt:Images>
-        <!--bt:Image id="icon16" DefaultValue="https://kunakorn1.github.io/simple-server/assets/icon-16.png"/>
-        <bt:Image id="icon32" DefaultValue="https://kunakorn1.github.io/simple-server/assets/icon-32.png"/>
-        <bt:Image id="icon80" DefaultValue="https://kunakorn1.github.io/simple-server/assets/icon-80.png"/-->
-        <bt:Image id="tog_ico" DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog.ico"/>
+        <bt:Image id="icon16" DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog-16.png"/>
+        <bt:Image id="icon32" DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog-32.png"/>
+        <bt:Image id="icon80" DefaultValue="https://kunakorn1.github.io/simple-server/assets/tog-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="functionFile" DefaultValue="https://kunakorn1.github.io/simple-server/function-file/function-file.html"/>
