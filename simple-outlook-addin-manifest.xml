@@ -16,7 +16,7 @@
   <ProviderName>Kunakorn</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
-  <DisplayName DefaultValue="Get Mail" />
+  <DisplayName DefaultValue="Save as HTML" />
   <Description DefaultValue="This is sample outlook add-in using html and javascript."/>
 
   <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
