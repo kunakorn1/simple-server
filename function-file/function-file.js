@@ -59,8 +59,7 @@ function getMailContents(event){
                              "</body>", "<br>\r\n",
                              "</html>");
   
-    download(contents,"email_" + itemId + ".html");
-    getAttachmentFiles();
+    download(contents,"email_" + subject + ".html");
     event.completed();
   });
 }
